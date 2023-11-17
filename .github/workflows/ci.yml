@@ -394,7 +394,7 @@ jobs:
             mkdir -p build
             cd build && cmake -DUSE_BUNDLED_DEPS=On -DBUILD_LIBSCAP_MODERN_BPF=On -DENABLE_DRIVERS_TESTS=On -DBUILD_LIBSCAP_GVISOR=Off -DCREATE_TEST_TARGETS=On ..
             make drivers_test
-            sudo ./test/drivers/drivers_test -m
+            ./test/drivers/drivers_test -m
 
   # This job checks that a bundled deps of libs is as static as possible
   test-libs-static:
