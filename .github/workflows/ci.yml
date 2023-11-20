@@ -363,7 +363,7 @@ jobs:
             ./libsinsp/test/unit-test-libsinsp
 
   build-libs-ppc64le:
-    name: build-scap-ppc64le 😇 (bundled_deps)
+    name: build-libs-ppc64le 😇 (system_deps)
     runs-on: ubuntu-22.04
     steps:
 
@@ -392,9 +392,9 @@ jobs:
             git config --global --add safe.directory $GITHUB_WORKSPACE
             .github/install-deps.sh
             mkdir -p build
-            cd build && cmake -DUSE_BUNDLED_DEPS=On -DBUILD_LIBSCAP_MODERN_BPF=On -DENABLE_DRIVERS_TESTS=On -DBUILD_LIBSCAP_GVISOR=Off -DCREATE_TEST_TARGETS=On ..
-            make drivers_test
-            ./test/drivers/drivers_test -m
+            cd build && cmake -DBUILD_BPF=On -DUSE_BUNDLED_DEPS=OFF -DMODERN_PROBE_INCLUDE="-I/usr/include/powerpc64le-linux-gnu" -DBUILD_LIBSCAP_MODERN_BPF=ON -DMODERN_BPF_DEBUG_MODE=ON -DBUILD_LIBSCAP_GVISOR=OFF ../
+            KERNELDIR=/lib/modules/$(ls /lib/modules)/build make scap-open driver bpf unit-test-libsinsp -j6
+            ./libsinsp/test/unit-test-libsinsp
 
   # This job checks that a bundled deps of libs is as static as possible
   test-libs-static:
