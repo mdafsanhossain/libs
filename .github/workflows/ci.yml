@@ -330,7 +330,7 @@ jobs:
       matrix:
         arch: [s390x, ppc64le]
     env:
-      PLATFORM: ${{ matrix.arch == 'ppc64le' && 'powerpc' || 's390x' }}
+      PLATFORM: ${{ matrix.arch == 'ppc64le' && 'powerpc64le' || 's390x' }}
     steps:
 
       - name: Checkout Libs ⤵️
